@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addCounter, resetCounter, DecrCounter } from "./redux/actions/index";
+const App = () => {
+  const { amount } = useSelector((state) => state.counter);
+  const dispatch = useDispatch();
+  const handleAdd = () => {
+    dispatch(addCounter());
+  };
+  const handleReset = () => {
+    dispatch(resetCounter());
+  };
+  const handleDecr = () => {
+    dispatch(DecrCounter());
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h4>{amount}</h4>
+      <button onClick={handleAdd}> ADD </button>
+      <br />
+      <hr />
+      <button onClick={handleDecr}> DECR </button>
+      <br />
+      <hr />
+      <button onClick={handleReset}> RESET </button>
     </div>
   );
-}
+};
 
 export default App;
