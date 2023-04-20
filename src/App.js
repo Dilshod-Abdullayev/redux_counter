@@ -1,28 +1,26 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { addCounter, resetCounter, DecrCounter } from "./redux/actions/index";
 const App = () => {
-  const { amount } = useSelector((state) => state.counter);
-  const dispatch = useDispatch();
-  const handleAdd = () => {
-    dispatch(addCounter());
-  };
-  const handleReset = () => {
-    dispatch(resetCounter());
-  };
-  const handleDecr = () => {
-    dispatch(DecrCounter());
-  };
+  let counter = useSelector((state) => state.counter)
+  let theme = useSelector((state) => state.theme)
+  console.log(theme);
+  const dispatch = useDispatch()
+  const decr = () => {
+    dispatch({ type: 'decr' })
+  }
   return (
-    <div>
-      <h4>{amount}</h4>
-      <button onClick={handleAdd}> ADD </button>
-      <br />
-      <hr />
-      <button onClick={handleDecr}> DECR </button>
-      <br />
-      <hr />
-      <button onClick={handleReset}> RESET </button>
+    <div className={`'p-10 container m-auto h-auto border rounded flex-col   flex justify-center items-center align-middle' ${theme ? 'bg-black text-white transition-shadow' : 'bg-white text-black transition-all'}`}>
+      <h4 className="text-3xl  font-extrabold">{counter}</h4>
+      <div className="mt-11"><button onClick={() => dispatch({ type: 'incr' })} class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded-full">
+        Add
+      </button>
+        <button class="bg-blue-500 hover:bg-blue-700  font-bold py-2 px-4 rounded-full">
+          RES
+        </button>
+        <button onClick={decr} class="bg-blue-500 hover:bg-blue-700 font-bold py-2 px-4 rounded-full">
+          DECR
+        </button></div>
+      <button className="bg-slate-500 text-3xl rounded border mt-10" onClick={() => dispatch({ type: 'dark' })}>theme</button>
     </div>
   );
 };
